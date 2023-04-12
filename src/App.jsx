@@ -1,4 +1,4 @@
-import { Post } from './post'
+import { Post } from './components/post'
 import { Header } from './components/header'
 
 import './global.css'
@@ -16,14 +16,17 @@ export function App() {
         
         <main>
           <Post 
-            author='Gui' 
-            content="Lorem ipsum dolor sit amet." 
+            authorPhoto='https://github.com/gui-farias.png'
+            authorName='Guilherme Farias' 
+            authorJob="web Developer" 
           />
 
           <Post 
-            author='Rafa' 
-            content="Lorem consectetur adipisicing. ipsum dolor sit amet."
+            authorPhoto='https://github.com/gui-farias.png'
+            authorName='Guilherme Farias' 
+            authorJob="web Developer" 
           />
+
         </main>
       </div>
     </div>
