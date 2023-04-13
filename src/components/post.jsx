@@ -1,36 +1,57 @@
+import { useState } from 'react'
 import { Comment } from './Comment'
 import style from './Post.module.css'
 
-export function Post(props) {
+
+export function Post({author, publishedAt, content}) {
+  const [comments, setComments] = useState([1,2,3]);
+  
+  const publishedDateFormated = new Intl.DateTimeFormat('pt-BR', {
+    day: '2-digit',
+    month: 'long',
+    hour: '2-digit',
+    minute: '2-digit'
+  }).format(publishedAt)
+  // or date fns to other format
+
+
+  function handleCreateNewComment(params) {
+    event.preventDefault()
+    setComments([...comments, comments.length+1])
+    console.log(comments);
+  }
+  console.log(comments);
+
   return (
     <article className={style.post}>
       <header className={style.header}>
          <div className={style.authorInfo}>
           <img 
             className={style.photo}
-            src={props.authorPhoto} 
+            src={author.photo} 
             alt="" 
           />
           <div>
-            <b>{props.authorName}</b>
-            <p>{props.authorJob}</p>
+            <b>{author.name}</b>
+            <p>{author.role}</p>
           </div>
         </div>
-        <time title='12 de Abril as 16h10' dateTime='2023-04-12 16h10'>1h ago</time>
+        <time title='12 de Abril as 16h10' dateTime='2023-04-12 16h10'>{publishedDateFormated}</time>
       </header>
 
       <div className={style.content}>
 
-        <p> Fala galeraa 👋</p>
+        {content.map(line => {
+          if (line.type === 'paragrapy') {
+            return <p>{line.text}</p>
+          } else if ((line.type === 'link')) {
+            return <p> <a href="#"> {line.text} </a>  </p>
+          }
+        })}
 
-        <p> Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀</p>
-
-        <p> <a href="#"> 👉 jane.design/doctorcare</a></p>
-
-        <p> <a href="#"> #novoprojeto #nlw #rocketseat</a></p>
       </div>
 
-      <form className={style.form}>
+      <form className={style.form} onSubmit={handleCreateNewComment}>
         <b>Deixe seu feedback</b>
 
         <textarea placeholder='Comente aqui!'/>
@@ -39,9 +60,9 @@ export function Post(props) {
       </form>
 
       <div className={style.commentList}>
-        <Comment />
-        <Comment />
-        <Comment />
+        {comments.map(comemnt => {
+          return <Comment />
+        })}
       </div>
     </article>
   )
