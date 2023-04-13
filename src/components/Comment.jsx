@@ -1,6 +1,6 @@
 import style from './Comment.module.css';
 
-export function Comment() {
+export function Comment({content}) {
   return (
     <div className={style.comment}>
       <img src="https://github.com/gui-farias.png" alt="" />
@@ -9,7 +9,7 @@ export function Comment() {
           <button title='Deletar comentario'> Deletar </button>
           <h3>Devon Lane</h3>
           <h5>1h ago</h5>
-          <p>Muito bom Devon, parabéns!! 👏👏</p>
+          <p>{content}</p>
         </div>
         <div className={style.like}>
           <button>Aplaudir <span>30</span></button>

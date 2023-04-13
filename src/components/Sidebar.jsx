@@ -12,7 +12,7 @@ export function Sidebar() {
       />
 
       <div className={style.profile}>
-        <img src="https://github.com/gui-farias.png" alt="" srcset="" />
+        <img src="https://github.com/gui-farias.png" alt=""/>
         <b>Guilherme Farias</b>
         <span>Web developer</span>
       </div>
