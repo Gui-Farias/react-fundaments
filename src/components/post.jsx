@@ -17,8 +17,13 @@ export function Post({author, publishedAt, content}) {
     minute: '2-digit'
   }).format(publishedAt)
   // or date fns to other format
+  
+  function handleCommentInvalid(){
+    event.target.setCustomValidity('Esse campo é obrigatorio!');
+  }
 
   function handleNewComment() {
+    event.target.setCustomValidity('');
     setNewComment(event.target.value)
   }
 
@@ -27,13 +32,16 @@ export function Post({author, publishedAt, content}) {
     setComments([...comments, newComment])
     setNewComment('')
   }
-
+  
   function deleteComment(commentToDelete) {
     const commentsAfterDeleteOne = comments.filter(comment => {
       return comment !== commentToDelete;
     })
     setComments(commentsAfterDeleteOne)
   }
+
+
+  const isCommentEmpty = newComment.length === 0;
 
   return (
     <article className={style.post}>
@@ -67,9 +75,16 @@ export function Post({author, publishedAt, content}) {
       <form className={style.form} onSubmit={handleCreateNewComment}>
         <b>Deixe seu feedback</b>
 
-        <textarea name='comment' placeholder='Comente aqui!' onChange={handleNewComment} value={newComment}/>
+        <textarea 
+          name='comment' 
+          placeholder='Comente aqui!' 
+          onChange={handleNewComment} 
+          value={newComment}
+          onInvalid={handleCommentInvalid}
+          required
+        />
 
-        <button type="submit">Publicar</button>
+        <button type="submit" disabled={isCommentEmpty}>Publicar</button>
       </form>
 
       <div className={style.commentList}>
